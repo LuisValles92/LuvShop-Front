@@ -29,6 +29,7 @@ import {
 } from '@okta/okta-angular';
 import myAppConfig from './config/my-app-config';
 import { MembersPageComponent } from './components/members-page/members-page.component';
+import { OrderHistoryComponent } from './components/order-history/order-history.component';
 
 const oktaConfig = Object.assign({
   onAuthRequired: (oktaAuth, injector) => {
@@ -45,6 +46,8 @@ First match wins.
 Start from most specific to generic.
 */
 const routes: Routes = [
+  { path: 'order-history', component: OrderHistoryComponent, canActivate: [OktaAuthGuard] },
+
   { path: 'members', component: MembersPageComponent, canActivate: [OktaAuthGuard] },
 
   { path: 'login/callback', component: OktaCallbackComponent }, // Once the user is authenticated, they are redirected to your app. Normally you would need to parse the response and store the OAuth + OIDC tokens. The OktaCallbackComponent does this for you!
@@ -73,7 +76,8 @@ const routes: Routes = [
     CheckoutComponent,
     LoginComponent,
     LoginStatusComponent,
-    MembersPageComponent
+    MembersPageComponent,
+    OrderHistoryComponent
   ],
   imports: [
     RouterModule.forRoot(routes),
