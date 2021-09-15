@@ -6,15 +6,16 @@ import { Product } from '../common/product';
 import { map } from 'rxjs/operators';
 
 import { ProductCategory } from '../common/product-category';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  private baseUrl = 'http://localhost:8080/api/products';
+  private baseUrl = environment.url + '/products';
 
-  private categoryUrl = 'http://localhost:8080/api/product-category';
+  private categoryUrl = environment.url + '/product-category';
 
   constructor(
     private httpClient: HttpClient
@@ -36,6 +37,8 @@ export class ProductService {
 
     // need to build URL based on category id, page and size
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}&page=${thePage}&size=${thePageSize}`;
+
+    console.log(`Getting products from - ${searchUrl}`);
 
     return this.httpClient.get<GetResponseProducts>(searchUrl);
   }
